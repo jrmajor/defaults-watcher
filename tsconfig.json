@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true,
+		"erasableSyntaxOnly": true,
+		"rewriteRelativeImportExtensions": true,
+		"verbatimModuleSyntax": true,
+		"checkJs": true,
+		"types": ["node"],
+	},
+	"include": [
+		"./eslint.config.js",
+		"./index.ts",
+		"./src/*.ts",
+	],
+}

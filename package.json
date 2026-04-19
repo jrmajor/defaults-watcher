@@ -1,0 +1,35 @@
+{
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@10.33.0",
+	"scripts": {
+		"start": "node index.ts",
+		"check": "tsc",
+		"check:watch": "tsc --watch",
+		"lint": "eslint . --max-warnings 0",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"chokidar": "^5.0.0",
+		"fast-xml-parser": "^5.7.1"
+	},
+	"devDependencies": {
+		"@jrmajor/eslint-config": "^0.3.0",
+		"@types/node": "^24.12.2",
+		"eslint": "^10.2.1",
+		"globals": "^17.5.0",
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.4"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "10.33.0"
+		},
+		"runtime": {
+			"name": "node",
+			"version": "^24.14",
+			"onFail": "download"
+		}
+	}
+}
