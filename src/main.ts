@@ -1,5 +1,7 @@
+import path from 'node:path';
 import { styleText } from 'node:util';
 import { readPlistFile } from './plist-read.ts';
+import { printDiffs } from './print-diffs.ts';
 import { getSnapshot, setSnapshot } from './snapshots-store.ts';
 import { createWatcher } from './watcher.ts';
 
@@ -14,6 +16,9 @@ export async function main() {
 
 		if (previous && !current) return;
 		setSnapshot(plistPath, current);
+
+		if (!previous || !current) return;
+		printDiffs(path.basename(plistPath, '.plist'), previous, current);
 	});
 
 	watcher.on('unlink', (path) => {
