@@ -1,6 +1,19 @@
 import path from 'node:path';
 
 export const BLACKLIST: Record<string, string[]> = {
+	// no permissions
+	'com.apple.AddressBook': ['*'],
+	'com.apple.MobileSMS': ['*'],
+	'com.apple.MobileSMS.CKDNDList': ['*'],
+	'com.apple.TimeMachine': ['*'],
+	'com.apple.apsd': ['*'],
+	'com.apple.homed': ['*'],
+	'com.apple.homed.notbackedup': ['*'],
+	'com.apple.mail-shared': ['*'],
+	'com.apple.messages.pinning': ['*'],
+	'com.apple.wifi.known-networks': ['*'],
+	'org.cups.printers': ['*'],
+
 	// can't be read using defaults
 	'com.apple.biometrickitd': ['*'],
 	'com.apple.powerlogd': ['*'],
@@ -29,10 +42,20 @@ export const BLACKLIST: Record<string, string[]> = {
 	'com.apple.xpc.activity2': ['*'],
 };
 
+export function isFileBlacklisted(filePath: string) {
+	return fullyBlacklistedDomains.has(path.basename(filePath, '.plist'));
+}
+
 export function isBlacklisted(domain: string, key: string) {
 	const matchers = regexByDomain.get(domain) ?? [];
 	return matchers.some((regex) => regex.test(key));
 }
+
+const fullyBlacklistedDomains = new Set(
+	Object.entries(BLACKLIST)
+		.filter(([, patterns]) => patterns.includes('*'))
+		.map(([domain]) => domain),
+);
 
 const regexByDomain = new Map(
 	Object.entries(BLACKLIST).map(([domain, patterns]) => [

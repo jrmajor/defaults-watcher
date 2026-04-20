@@ -1,6 +1,7 @@
 import { statSync } from 'node:fs';
 import path from 'node:path';
 import chokidar from 'chokidar';
+import { isFileBlacklisted } from './blacklist.ts';
 
 export function createWatcher(paths?: string[]) {
 	paths ??= [
@@ -11,6 +12,7 @@ export function createWatcher(paths?: string[]) {
 	return chokidar.watch(paths, {
 		depth: 0,
 		ignored: (candidatePath, stat) => {
+			if (isFileBlacklisted(candidatePath)) return true;
 			if (candidatePath.endsWith('.plist')) return false;
 
 			stat ??= statSync(candidatePath);
