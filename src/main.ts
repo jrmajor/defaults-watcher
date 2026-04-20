@@ -1,8 +1,24 @@
 import { styleText } from 'node:util';
+import { readPlistFile } from './plist-read.ts';
+import { getSnapshot, setSnapshot } from './snapshots-store.ts';
 import { createWatcher } from './watcher.ts';
 
 export async function main() {
 	const watcher = createWatcher();
+
+	watcher.on('all', (event, plistPath) => {
+		if (event !== 'add' && event !== 'change') return;
+
+		const previous = getSnapshot(plistPath);
+		const current = safeReadPlistFile(plistPath);
+
+		if (previous && !current) return;
+		setSnapshot(plistPath, current);
+	});
+
+	watcher.on('unlink', (path) => {
+		setSnapshot(path, null);
+	});
 
 	watcher.on('ready', () => {
 		console.log(styleText('green', 'Initial scan completed, watching…'));
@@ -15,4 +31,13 @@ export async function main() {
 
 	process.once('SIGINT', () => watcher.close().finally(() => process.exit(0)));
 	process.once('SIGTERM', () => watcher.close().finally(() => process.exit(0)));
+}
+
+function safeReadPlistFile(plistPath: string) {
+	try {
+		return readPlistFile(plistPath);
+	} catch (error) {
+		console.log(`${styleText('red', 'read error:')} ${plistPath}\n  ${error}`);
+		return null;
+	}
 }
