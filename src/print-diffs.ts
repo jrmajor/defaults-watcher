@@ -1,3 +1,4 @@
+import { styleText } from 'node:util';
 import { isBlacklisted } from './blacklist.ts';
 import { buildDeleteCommand, buildWriteCommand } from './build-command.ts';
 import { deepEqual, type PlistDict } from './plist-values.ts';
@@ -21,7 +22,10 @@ export function printDiffs(domain: string, previous: PlistDict, current: PlistDi
 		if (currentValue.type === 'date' || currentValue.type === 'data') continue;
 
 		const command = buildWriteCommand(domain, key, currentValue);
-		if (command === null) return;
+		if (command === null) {
+			console.error(`${styleText('red', "can't create command:")} ${domain} ${key}`);
+			return;
+		}
 
 		console.log(command);
 	}

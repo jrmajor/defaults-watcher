@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import { main } from './src/main.ts';
+import { run } from '@stricli/core';
+import { app } from './src/app.ts';
 
-main();
+void run(app, process.argv.slice(2), { process });
