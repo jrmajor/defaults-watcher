@@ -1,12 +1,12 @@
-allowBuilds:
-  unrs-resolver: true
-
 overrides:
   '@jrmajor/eslint-config@*>eslint-plugin-svelte': '-'
   '@jrmajor/eslint-config@*>@eslint/css': '-'
   '@jrmajor/eslint-config@*>tailwind-csstree': '-'
 
+allowBuilds:
+  unrs-resolver: false
+
+minimumReleaseAge: 0
 engineStrict: true
 dedupePeers: true
-strictDepBuilds: true
 strictPeerDependencies: true
