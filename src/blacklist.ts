@@ -11,7 +11,9 @@ export const BLACKLIST: Record<string, string[]> = {
 	'com.apple.homed.notbackedup': ['*'],
 	'com.apple.mail-shared': ['*'],
 	'com.apple.messages.pinning': ['*'],
+	'com.apple.networkextension.uuidcache': ['*'],
 	'com.apple.wifi.known-networks': ['*'],
+	'com.openai.sky.CUAService': ['*'],
 	'org.cups.printers': ['*'],
 
 	// can't be read using defaults
@@ -19,18 +21,22 @@ export const BLACKLIST: Record<string, string[]> = {
 	'com.apple.powerlogd': ['*'],
 
 	// noisy / not useful
+	TokenBucketRateLimiter: ['SKDUserDefaultsRoot'],
+	'app.kaleidoscope.v4': ['RecentDocuments'],
 	'com.apple.Accessibility.Assets': ['*'],
+	'com.apple.AudioAccessory': ['*'],
 	'com.apple.CallHistorySyncHelper': ['*'],
 	'com.apple.DataDeliveryServices': ['*'],
 	'com.apple.DuetExpertCenter.AppPredictionExpert': ['*'],
 	'com.apple.GenerativeFunctions.GenerativeFunctionsInstrumentation': ['*'],
+	'com.apple.MenuBarAgent': ['MenuBarAnalytics.lastReportedTrailingItemCount'],
 	'com.apple.accessibility.heard': ['*'],
 	'com.apple.accessory.Hearing': ['*'],
 	'com.apple.amsengagementd': ['*'],
 	'com.apple.appleintelligencereporting': ['*'],
 	'com.apple.cseventlistener': ['*'],
 	'com.apple.dataaccess.babysitter': ['*'],
-	'com.apple.dock': ['recent-apps'],
+	'com.apple.dock': ['mod-count', 'recent-apps'],
 	'com.apple.facetime.bag': ['*'],
 	'com.apple.imessage.bag': ['*'],
 	'com.apple.inputAnalytics.serverStats': ['*'],
@@ -39,7 +45,13 @@ export const BLACKLIST: Record<string, string[]> = {
 	'com.apple.remindd': ['*'],
 	'com.apple.security.cloudkeychainproxy3.keysToRegister': ['*'],
 	'com.apple.spotlightknowledge': ['*'],
+	'com.apple.spotlightknowledged.pipeline': ['SKDUserDefaultsRoot'],
 	'com.apple.xpc.activity2': ['*'],
+	'com.contextsformac.Contexts': ['CTUsageCount*'],
+	'com.openai.codex': ['DockIconCacheRefreshToken'],
+	'com.raycast.macos': ['commandScheduler_commandRuns'],
+	'com.segment.storage.ewjp2RGpYO4hHSErQ3lBOOjnR0YqolJo': ['segment.events'],
+	'company.thebrowser.Browser': ['mostRecentUpdateDownloadTime'],
 };
 
 export function isFileBlacklisted(filePath: string) {
