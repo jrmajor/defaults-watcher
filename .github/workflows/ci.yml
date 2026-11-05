@@ -1,0 +1,56 @@
+name: CI
+
+on: push
+
+jobs:
+  types:
+    name: Types
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/setup@v3
+        with:
+          cache: true
+
+      - name: Check types
+        run: pnpm run check
+
+  lint:
+    name: Lint
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/setup@v3
+        with:
+          cache: true
+
+      - name: Run ESLint
+        run: pnpm run lint
+
+  test:
+    name: Test
+
+    # tests call `plutil`, which only exists on macOS
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/setup@v3
+        with:
+          cache: true
+
+      - name: Run Vitest
+        run: pnpm run test
