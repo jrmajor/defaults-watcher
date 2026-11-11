@@ -14,7 +14,7 @@
 	"dependencies": {
 		"@stricli/core": "^1.2.6",
 		"chokidar": "^5.0.0",
-		"fast-xml-parser": "^5.7.1"
+		"fast-xml-parser": "^5.12.0"
 	},
 	"devDependencies": {
 		"@jrmajor/eslint-config": "^0.3.0",
